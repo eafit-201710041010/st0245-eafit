@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 public class Ejercicios
 {
     /** ArraySum recursivo */
@@ -8,7 +11,7 @@ public class Ejercicios
             return A[n] + ArraySum(A, n-1);
         }
     }
-    
+
     /** Array Máximo recursivo */
     public static int ArrayMax(int [] A, int n){
         int max = A[n];
@@ -23,7 +26,7 @@ public class Ejercicios
         }
         return max;
     }
-    
+
     /** fibonacci recursivo */
     public static long fibonacci(int n) {
         if (n <= 1) return n;
