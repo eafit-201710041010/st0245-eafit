@@ -1,5 +1,5 @@
 
-public class Ejercicios
+public class codigo
 {
     /** ArraySum recursivo */
     public static int ArraySum(int[] A, int n){
