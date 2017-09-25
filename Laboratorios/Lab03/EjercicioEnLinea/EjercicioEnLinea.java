@@ -14,7 +14,7 @@ public class EjercicioEnLinea
         pos++;
     }
 
-    public String toString(){
+    public String imprimir(){
         String s = "";
         for(int i = 0; i < lista.size(); i++){
             s += lista.get(i);
@@ -23,27 +23,25 @@ public class EjercicioEnLinea
     }
 
     public void revisar(){
-        System.out.println("Ingresar entrada ('.' para salida)");
+        System.out.println("");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try{
             int c;
             String line = br.readLine();
-            while ((c = br.read()) != -1) {
+            Reader readLine = new StringReader(line);
+            BufferedReader br2 = new BufferedReader(readLine);
+            while ((c = br2.read()) != -1) {
                 char a = (char) c;
                 if(a == '['){
                     pos = 0;
                 } else if (a == ']'){
-                    pos = lista.size()-1;
+                    pos = lista.size();
                 } else {
                     add(a);
                 }
-                if(a == '.'){
-                    break;
-                }
             }
-            System.out.println(toString());
+            System.out.println(imprimir());
         } catch(Exception e){}
-
     }
 
     public static void main(String [] args){
