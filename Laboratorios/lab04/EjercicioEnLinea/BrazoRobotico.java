@@ -73,14 +73,12 @@ public class BrazoRobotico
         }
         sb.push(sa.pop());
     }
-
     public void moveOver(int a, int b, Stack<Integer> sa, Stack<Integer> sb){
         while(sa.peek() != a){
             devolver(sa.pop());
         }
         sb.push(sa.pop());
     }
-
     public void pileOnto(int a, int b, Stack<Integer> sa, Stack<Integer> sb){
         Stack<Integer> losAmigosDeA = new Stack<Integer>();
         int n = sa.pop();
@@ -96,7 +94,6 @@ public class BrazoRobotico
             sb.push(losAmigosDeA.pop());
         }
     }
-
     public void pileOver(int a, int b, Stack<Integer> sa, Stack<Integer> sb){
         Stack<Integer> losAmigosDeA = new Stack<Integer>();
         int n = sa.pop();
