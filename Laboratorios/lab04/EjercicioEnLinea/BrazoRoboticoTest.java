@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BrazoRoboticoTest {
-
 	@Test
 	public void testMoveOnto() {
         BrazoRobotico brazo = new BrazoRobotico(3);
