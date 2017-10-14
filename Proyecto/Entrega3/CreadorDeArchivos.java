@@ -14,16 +14,18 @@ public class CreadorDeArchivos
 
         String[] info = linea.split(" ");
         for(int i = 0; i < info.length; i++){
-            if(info[i].contains("]")){
+            if(info[i].contains("]") && i != info.length-1){
                 String tam = info[i];
                 String numero = tam.substring(0, tam.length()-1);
-                if(numero.contains("M") || numero.contains("K")){
+                if(numero.contains("M") || numero.contains("K") || numero.contains("G")){
                     int u;
                     char unidad = numero.charAt(numero.length()-1);
-                    if(unidad == 'M'){
+                    if(unidad == 'K'){
+                        u = 1000;
+                    } else if(unidad == 'M'){
                         u = 1000000;
                     } else {
-                        u = 1000;
+                        u = 1000000000;
                     }
                     numero = numero.substring(0, numero.length()-1);
                     double ize = Double.parseDouble(numero) * u;
@@ -32,7 +34,6 @@ public class CreadorDeArchivos
                     double ize = Double.parseDouble(numero);
                     size = (int)ize;
                 }
-                
             }
             try{
                 while(linea.charAt(distancia) != '['){
@@ -44,7 +45,7 @@ public class CreadorDeArchivos
             }
         }
         for (int i = 0; i < linea.length(); i++){
-            if(linea.charAt(i) == ']'){
+            if(linea.charAt(i) == ']' &&  i != linea.length()-1){
                 nombre = linea.substring(i+3);
             }
         }
@@ -56,30 +57,5 @@ public class CreadorDeArchivos
 
     public void leerEncabezado(String linea){
         jerarquias[0] = new Archivo(0, linea);
-    }
-
-    public static void hola(){
-        CreadorDeArchivos b = new CreadorDeArchivos();
-        String linea;
-        //linea ="Proyecto/";
-        //b.leerEncabezado(linea);
-
-        linea ="├── [root     4.0K]  mono";
-        b.leerLinea(linea);
-
-        linea ="│   ├── [root     4.0K]  certstore";
-        b.leerLinea(linea);
-
-        linea ="│   │   └── [root     4.0K]  certs";
-        b.leerLinea(linea);
-
-        linea ="│   │       └── [root      24K]  Trust";
-        b.leerLinea(linea);
-
-        linea ="│   │           ├── [root     1.5K]  ski lodge";
-        b.leerLinea(linea);
-
-        linea = "│   │               ├── [root      333]  parole.xml";
-        b.leerLinea(linea);
     }
 }

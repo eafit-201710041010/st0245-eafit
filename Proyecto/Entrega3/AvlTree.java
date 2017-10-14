@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /******************************************************************************
 import java.lang.StringBuilder;
 
@@ -137,9 +138,8 @@ class AvlTree<T extends Comparable<? super T>> {
     protected AvlNode<T> insert (T x, AvlNode<T> t) throws Exception{
         if (t == null)
             t = new AvlNode<T> (x);
-        else if (x.compareTo (t.element) < 0){
+        else if (x.compareTo(t.element) < 0){
             t.left = insert (x, t.left);
-
             if (height (t.left) - height (t.right) == 2){
                 if (x.compareTo (t.left.element) < 0){
                     t = rotateWithLeftChild (t);
@@ -151,9 +151,8 @@ class AvlTree<T extends Comparable<? super T>> {
                 }
             }
         }
-        else if (x.compareTo (t.element) > 0){
+        else if (x.compareTo(t.element) > 0){
             t.right = insert (x, t.right);
-
             if ( height (t.right) - height (t.left) == 2)
                 if (x.compareTo (t.right.element) > 0){
                     t = rotateWithRightChild (t);
@@ -163,11 +162,10 @@ class AvlTree<T extends Comparable<? super T>> {
                     t = doubleWithRightChild (t);
                     countDoubleRotations++;
                 }
-        }
+        } else if(x.compareTo(t.element) == 0){}
         else {
-            throw new Exception("Attempting to insert duplicate value");
+            System.out.println("Hay un error en la al agregar");
         }
-
         t.height = max (height (t.left), height (t.right)) + 1;
         return t;
     }
@@ -249,7 +247,7 @@ class AvlTree<T extends Comparable<? super T>> {
      */
     public String serializeInfix(){
         StringBuilder str = new StringBuilder();
-        serializeInfix (root, str, " ");
+        serializeInfix (root, str, "\n");
         return str.toString();
     }
 
@@ -278,7 +276,7 @@ class AvlTree<T extends Comparable<? super T>> {
      */  
     public String serializePrefix(){
         StringBuilder str = new StringBuilder();
-        serializePrefix (root, str, " ");
+        serializePrefix (root, str, "\n");
         return str.toString();
     }
 
@@ -438,7 +436,7 @@ class AvlTree<T extends Comparable<? super T>> {
         }
         return t;
     } //End of remove...
-
+    
     /**
      * Search for an element within the tree. 
      *
@@ -446,10 +444,9 @@ class AvlTree<T extends Comparable<? super T>> {
      * @param t Root of the tree
      * @return True if the element is found, false otherwise
      */
-    public boolean contains(T x){
-        return contains(x, root); 
+    public T buscar(T x){
+        return buscar(x, root);
     }
-
     /**
      * Internal find method; search for an element starting at the given node.
      *
@@ -457,19 +454,17 @@ class AvlTree<T extends Comparable<? super T>> {
      * @param t Root of the tree
      * @return True if the element is found, false otherwise
      */
-    protected boolean contains(T x, AvlNode<T> t) {
-        if (t == null){
-            return false; // The node was not found
-
+    protected T buscar(T x, AvlNode<T> t) {
+        if (t == null || t.element == null){
+            return null; // The node was not found
         } else if (x.compareTo(t.element) < 0){
-            return contains(x, t.left);
+            return buscar(x, t.left);
         } else if (x.compareTo(t.element) > 0){
-            return contains(x, t.right); 
+            return buscar(x, t.right); 
         }
-
-        return true; // Can only reach here if node was found
+        return t.element; // Can only reach here if node was found
     }
-
+    
     /***********************************************************************/
     // Diagnostic functions for the tree
     public boolean checkBalanceOfTree(AvlTree.AvlNode<Integer> current) {
