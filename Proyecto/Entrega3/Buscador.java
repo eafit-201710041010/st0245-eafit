@@ -76,9 +76,9 @@ public class Buscador
         long startTime ;
         long estimatedTimeSum;
 
-        //CreadorDeArbol arb = new CreadorDeArbol("juegos.txt");
+        CreadorDeArbol arb = new CreadorDeArbol("juegos.txt");
         //CreadorDeArbol arb = new CreadorDeArbol("treeEtc.txt");
-        CreadorDeArbol arb = new CreadorDeArbol("ejemplito.txt");
+        //CreadorDeArbol arb = new CreadorDeArbol("ejemplito.txt");
 
         //Creación árbol 1
         startTime = System.currentTimeMillis();
@@ -117,10 +117,9 @@ public class Buscador
             }
             perdido = buscador.leerBusqueda();
         }
-
-        //powerbtn.sh , 43
-        //talk020.bfstm, 255
-
-        System.out.println();
+        
+        //Nombre y tamaño ejemplos para juegos.txt: talk020.bfstm, 255K
+        //Nombre y tamaño ejemplos para treeEtc.txt: powerbtn.sh , 43
+        //Nombre y tamaño ejemplos para ejemplito.txt: rosette.eps , 4.0K
     }
 }
