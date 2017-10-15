@@ -7,7 +7,7 @@ public class CreadorDeArchivos
         jerarquias = new Archivo[100];
     }
 
-    public Archivo leerLinea(String linea){
+    public Archivo leerLinea(String linea, boolean porNombre){
         String size = "";
         String nombre = "";
         int distancia = 0;
@@ -35,6 +35,8 @@ public class CreadorDeArchivos
         Archivo a;
         a = new Archivo(size, nombre, jerarquias[distancia-1]);
         jerarquias[distancia] = a;
+        a.porNombre = porNombre;
+        jerarquias[distancia-1].subDirectorios.insert(a);
         return a;
     }
 

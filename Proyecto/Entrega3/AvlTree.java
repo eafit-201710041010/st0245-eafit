@@ -95,7 +95,7 @@ class AvlTree<T extends Comparable<? super T>> {
     public int height (AvlNode<T> t){
         return t == null ? -1 : t.height;
     }
-
+    
     /**
      * Find the maximum value among the given numbers.
      * 
@@ -125,6 +125,10 @@ class AvlTree<T extends Comparable<? super T>> {
         } catch(Exception e){ // TODO: catch a DuplicateValueException instead!
             return false;
         }
+    }
+    
+    public int numberOfElements(){
+        return countInsertions;
     }
 
     /**
@@ -247,7 +251,7 @@ class AvlTree<T extends Comparable<? super T>> {
      */
     public String serializeInfix(){
         StringBuilder str = new StringBuilder();
-        serializeInfix (root, str, "\n");
+        serializeInfix (root, str, "\n\t");
         return str.toString();
     }
 
@@ -276,7 +280,7 @@ class AvlTree<T extends Comparable<? super T>> {
      */  
     public String serializePrefix(){
         StringBuilder str = new StringBuilder();
-        serializePrefix (root, str, "\n");
+        serializePrefix (root, str, "\n\t");
         return str.toString();
     }
 
@@ -441,7 +445,6 @@ class AvlTree<T extends Comparable<? super T>> {
      * Search for an element within the tree. 
      *
      * @param x Element to find
-     * @param t Root of the tree
      * @return True if the element is found, false otherwise
      */
     public T buscar(T x){

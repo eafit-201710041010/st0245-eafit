@@ -17,7 +17,7 @@ public class Buscador
 
     public Archivo leerBusqueda(){
         Scanner in = new Scanner(System.in);
-        System.out.println("Ingresar parámetro de búsqueda (\"nombre\" o \"tamaño\") o \" salir\" para salir");
+        System.out.println("Ingresar parámetro de búsqueda (\"nombre\" o \"tamaño\") o \"salir\" para salir");
         String par;
         while(true){
             par = in.next();
@@ -53,8 +53,8 @@ public class Buscador
         long startTime ;
         long estimatedTimeSum;
 
-        CreadorDeArbol arb = new CreadorDeArbol("juegos.txt");
-        //CreadorDeArbol arb = new CreadorDeArbol("treeEtc.txt");
+        //CreadorDeArbol arb = new CreadorDeArbol("juegos.txt");
+        CreadorDeArbol arb = new CreadorDeArbol("treeEtc.txt");
         //CreadorDeArbol arb = new CreadorDeArbol("ejemplito.txt");
 
         //Creación árbol 1
@@ -85,15 +85,27 @@ public class Buscador
             if(encontrado == null){
                 System.out.println("No se encontraron archivos o carpetas con las características ingresadas");
             } else {
-                encontrados = encontrado.iguales;
-                System.out.println("Se encontraron " + (encontrados.size()) + " archivo(s) de ese nombre o tamaño en " + tiempoDeBusqueda + " milisegundos");
-                for(int i = 0; i < encontrados.size(); i++){
-                    System.out.println(encontrados.get(i));
-                }
-                System.out.println();
+                if(encontrado.porNombre){
+                    encontrados = encontrado.iguales;
+                    System.out.println();
+                    System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas con ese nombre en " + tiempoDeBusqueda + " milisegundos");
+                    for(int i = 0; i < encontrados.size(); i++){
+                        System.out.println(encontrados.get(i));
+                        System.out.println(encontrados.get(i).imprimirSubdirectorios());
+                    }
+                    System.out.println();
+                } else {
+                    encontrados = encontrado.iguales;
+                    System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas de ese tamaño en " + tiempoDeBusqueda + " milisegundos");
+                    for(int i = 0; i < encontrados.size(); i++){
+                        System.out.println(encontrados.get(i));
+                    }
+                    System.out.println();
+                }   
             }
             perdido = buscador.leerBusqueda();
         }
+        System.exit(0);
         
         //Nombre y tamaño ejemplos para juegos.txt: talk020.bfstm, 255K
         //Nombre y tamaño ejemplos para treeEtc.txt: powerbtn.sh , 43

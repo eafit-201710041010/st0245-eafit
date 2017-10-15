@@ -18,11 +18,12 @@ public class CreadorDeArbol
         arch.leerEncabezado(linea);
         while(linea != null){
             linea = br.readLine();
-            Archivo a = arch.leerLinea(linea);
+            Archivo a = arch.leerLinea(linea, false);
             if(a == null){
                 break;
             }
             //System.out.println(a);
+            a.porNombre = false;
             t.insert(a);
         }
         return t;
@@ -36,7 +37,7 @@ public class CreadorDeArbol
         arch.leerEncabezado(linea);
         while(linea != null){
             linea = br2.readLine();
-            Archivo a = arch.leerLinea(linea);
+            Archivo a = arch.leerLinea(linea, true);
             if(a == null){
                 break;
             }

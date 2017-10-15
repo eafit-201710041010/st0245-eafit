@@ -7,6 +7,7 @@ public class Archivo implements Comparable<Archivo>
     boolean porNombre;
     boolean buscando;
     ArrayList<Archivo> iguales;
+    AvlTree<Archivo> subDirectorios;
     public Archivo(String tam, String nom, Archivo boss){
         size = tam;
         nombre = nom;
@@ -14,6 +15,7 @@ public class Archivo implements Comparable<Archivo>
         porNombre = false;
         buscando = false;
         iguales = new ArrayList<Archivo>();
+        subDirectorios = new AvlTree<Archivo>();
         iguales.add(this);
     }
     public Archivo(String tam, String nom){
@@ -23,6 +25,7 @@ public class Archivo implements Comparable<Archivo>
         porNombre = false;
         buscando = false;
         iguales = new ArrayList<Archivo>();
+        subDirectorios = new AvlTree<Archivo>();
         iguales.add(this);
     }
     public Archivo(String tam, boolean nom){
@@ -72,17 +75,26 @@ public class Archivo implements Comparable<Archivo>
     }
     
     public String imprimirDireccion(){
-        return imprimirDireccionAux(this) + "/" + nombre;
+        return imprimirDireccion(this) + "/" + nombre;
     }
-    private String imprimirDireccionAux(Archivo a){
+    private String imprimirDireccion(Archivo a){
         if(a.jefe == null){
             return "";
         }
-        String s = imprimirDireccionAux(a.jefe) + "/" + a.jefe.nombre;
+        String s = imprimirDireccion(a.jefe) + "/" + a.jefe.nombre;
         return s;
     }
+    
+    public String imprimirSubdirectorios(){
+        String s = "";
+        if(subDirectorios.numberOfElements() > 0){
+            s += "Con " + subDirectorios.numberOfElements() + " subdirectorios\n\t" + subDirectorios.serializePrefix();
+        }
+        return s;
+    }
+    
     public String toString(){
         String s = nombre;
-        return s + " " + size + " " + imprimirDireccion();
+        return s + " " + size + "\t" + imprimirDireccion();
     }
 }
