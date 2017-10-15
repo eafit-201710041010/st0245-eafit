@@ -1,4 +1,3 @@
-
 public class CreadorDeArchivos
 {
     Archivo[] jerarquias;

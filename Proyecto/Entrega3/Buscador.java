@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 /**
  * Write a description of class Buscador here.
  * 
@@ -77,7 +77,7 @@ public class Buscador
         //Buscador
         Buscador buscador = new Buscador(tnum, tnom);
         Archivo perdido = buscador.leerBusqueda();
-        List<Archivo> encontrados;
+        ArrayList<Archivo> encontrados;
         while(perdido != null){
             startTime = System.currentTimeMillis();
             Archivo encontrado = buscador.buscar(perdido);

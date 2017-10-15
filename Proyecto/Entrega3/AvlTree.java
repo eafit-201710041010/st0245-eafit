@@ -1,7 +1,4 @@
-import java.util.ArrayList;
 /******************************************************************************
-import java.lang.StringBuilder;
-
 /** 
  * Implementation of an AVL Tree, along with code to test insertions on the tree.
  * 
