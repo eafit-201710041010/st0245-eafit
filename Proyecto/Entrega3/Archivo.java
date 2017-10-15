@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 public class Archivo implements Comparable<Archivo>
 {
-    int size;
+    String size;
     String nombre;
     Archivo jefe;
     boolean porNombre;
     boolean buscando;
     ArrayList<Archivo> iguales;
-    public Archivo(int tam, String nom, Archivo boss){
+    public Archivo(String tam, String nom, Archivo boss){
         size = tam;
         nombre = nom;
         jefe = boss;
@@ -16,7 +16,7 @@ public class Archivo implements Comparable<Archivo>
         iguales = new ArrayList<Archivo>();
         iguales.add(this);
     }
-    public Archivo(int tam, String nom){
+    public Archivo(String tam, String nom){
         size = tam;
         nombre = nom;
         jefe = null;
@@ -25,19 +25,17 @@ public class Archivo implements Comparable<Archivo>
         iguales = new ArrayList<Archivo>();
         iguales.add(this);
     }
-    public Archivo(int tam){
-        size = tam;
-        nombre = "";
+    public Archivo(String tam, boolean nom){
+        porNombre = nom; 
+        if (nom){
+            size = "";
+            nombre = tam;
+        }else {
+            size = tam;
+            nombre = "";
+        }
         jefe = null;
         buscando = true;
-        porNombre = false;
-    }
-    public Archivo(String nom){
-        size = 0;
-        nombre = nom;
-        jefe = null;
-        buscando = true;
-        porNombre = true;
     }
     
     @Override
@@ -53,7 +51,7 @@ public class Archivo implements Comparable<Archivo>
     }
     
     public int compararSize(Archivo a){
-        int n = Integer.compare(size, a.size);
+        int n = size.compareTo(a.size);
         if(!(a.buscando) && !(buscando)){
             if(n == 0){
                 a.iguales.add(this);
@@ -85,15 +83,6 @@ public class Archivo implements Comparable<Archivo>
     }
     public String toString(){
         String s = nombre;
-        if(size >= 1000000){
-            double size2 = size / 1000000.0;
-            s += " " + size2 + "M";
-        } else if(size >= 1000){
-            double size2 = size / 1000.0;
-            s += " " + size2 + "K";
-        } else {
-            s += " " + size;
-        }
-        return s + " " /*+ imprimirDireccion() + "\n"*/;
+        return s + " " + size + " " + imprimirDireccion();
     }
 }

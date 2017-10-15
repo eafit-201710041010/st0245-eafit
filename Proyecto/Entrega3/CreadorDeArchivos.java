@@ -8,7 +8,7 @@ public class CreadorDeArchivos
     }
 
     public Archivo leerLinea(String linea){
-        int size = 0;
+        String size = "";
         String nombre = "";
         int distancia = 0;
 
@@ -16,24 +16,7 @@ public class CreadorDeArchivos
         for(int i = 0; i < info.length; i++){
             if(info[i].contains("]") && i != info.length-1){
                 String tam = info[i];
-                String numero = tam.substring(0, tam.length()-1);
-                if(numero.contains("M") || numero.contains("K") || numero.contains("G")){
-                    int u;
-                    char unidad = numero.charAt(numero.length()-1);
-                    if(unidad == 'K'){
-                        u = 1000;
-                    } else if(unidad == 'M'){
-                        u = 1000000;
-                    } else {
-                        u = 1000000000;
-                    }
-                    numero = numero.substring(0, numero.length()-1);
-                    double ize = Double.parseDouble(numero) * u;
-                    size = (int)ize;
-                } else {
-                    double ize = Double.parseDouble(numero);
-                    size = (int)ize;
-                }
+                size = tam.substring(0, tam.length()-1);
             }
             try{
                 while(linea.charAt(distancia) != '['){
@@ -56,6 +39,6 @@ public class CreadorDeArchivos
     }
 
     public void leerEncabezado(String linea){
-        jerarquias[0] = new Archivo(0, linea);
+        jerarquias[0] = new Archivo("", linea);
     }
 }

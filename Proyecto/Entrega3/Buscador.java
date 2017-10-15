@@ -24,35 +24,12 @@ public class Buscador
             if(par.equals("tamaño")){
                 System.out.println("Ingrese el tamaño del archivo buscado (ejemplo \"255K\")");
                 String numero = in.next();
-                int size;
-                if(numero.charAt(numero.length()-1) == 'K' || numero.charAt(numero.length()-1) == 'M' || numero.charAt(numero.length()-1) == 'G'){
-                    int u;
-                    char unidad = numero.charAt(numero.length()-1);
-                    if(unidad == 'K'){
-                        u = 1000;
-                    } else if(unidad == 'M'){
-                        u = 1000000;
-                    } else {
-                        u = 1000000000;
-                    }
-                    numero = numero.substring(0, numero.length()-1);
-                    double ize = Double.parseDouble(numero) * u;
-                    size = (int)ize;
-                } else {
-                    try{
-                        double ize = Double.parseDouble(numero);
-                        size = (int)ize;
-                    } catch (Exception e){
-                        System.out.println("Parámetro inválido");
-                        return leerBusqueda();
-                    }
-                }
-                Archivo a = new Archivo(size);
+                Archivo a = new Archivo(numero, false);
                 return a;
             } else if (par.equals("nombre")){
                 System.out.println("Ingrese el nombre del archivo buscado (ejemplo \"miArchivoPreferido.txt\")");
                 String nombre = in.next();
-                Archivo a = new Archivo(nombre);
+                Archivo a = new Archivo(nombre, true);
                 return a;
             } else if(par.equals("salir")){
                 return null;
@@ -109,7 +86,7 @@ public class Buscador
                 System.out.println("No se encontraron archivos o carpetas con las características ingresadas");
             } else {
                 encontrados = encontrado.iguales;
-                System.out.println("Se encontraron " + (encontrados.size()) + " archivo(s) de ese nombre en " + tiempoDeBusqueda + " milisegundos");
+                System.out.println("Se encontraron " + (encontrados.size()) + " archivo(s) de ese nombre o tamaño en " + tiempoDeBusqueda + " milisegundos");
                 for(int i = 0; i < encontrados.size(); i++){
                     System.out.println(encontrados.get(i));
                 }
