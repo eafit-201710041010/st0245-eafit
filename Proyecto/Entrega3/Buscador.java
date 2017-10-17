@@ -17,31 +17,47 @@ public class Buscador
 
     public Archivo leerBusqueda(){
         Scanner in = new Scanner(System.in);
-        System.out.println("Ingresar parámetro de búsqueda (\"nombre\" o \"tamaño\") o \"salir\" para salir");
+        System.out.println("Ingresar parámetro de búsqueda (\"n\", \"t\" o \"nt\") o \"s\" para salir");
         String par;
         while(true){
             par = in.next();
-            if(par.equals("tamaño")){
+            if(par.equals("t")){
                 System.out.println("Ingrese el tamaño del archivo buscado (ejemplo \"255K\")");
                 String numero = in.next();
                 Archivo a = new Archivo(numero, false);
                 return a;
-            } else if (par.equals("nombre")){
+            } else if (par.equals("n")){
                 System.out.println("Ingrese el nombre del archivo buscado (ejemplo \"miArchivoPreferido.txt\")");
                 String nombre = in.next();
                 Archivo a = new Archivo(nombre, true);
                 return a;
-            } else if(par.equals("salir")){
+            } else if(par.equals("nt")){
+                System.out.println("Ingrese el nombre del archivo buscado (ejemplo \"miArchivoPreferido.txt\")");
+                String nombre = in.next();
+                System.out.println("Ingrese el tamaño del archivo buscado (ejemplo \"255K\")");
+                String numero = in.next();
+                Archivo a = new Archivo(numero, nombre);
+                a.porNombre = true;
+                return a;
+            } else if(par.equals("s")){
                 return null;
-            } else {
-                System.out.println("Ingresar parámetro válido (\"nombre\" o \"tamaño\")");
+            }else {
+                System.out.println("Ingresar parámetro válido (\"n\", \"t\" o \"nt\")");
             }
         }
     }
 
     public Archivo buscar(Archivo a){
         Archivo encontrado;
-        if(a.porNombre){
+        if(!(a.nombre.equals("")) && !(a.size.equals(""))){
+            encontrado = tnom.buscar(a);
+            if(encontrado == null){
+                return null;
+            }
+            a.porNombre = false;
+            encontrado = encontrado.igualNombre.buscar(a);
+            System.out.println(encontrado);
+        } else if(a.porNombre){
             encontrado = tnom.buscar(a);
         } else {
             encontrado = tnum.buscar(a);
@@ -53,8 +69,8 @@ public class Buscador
         long startTime ;
         long estimatedTimeSum;
 
-        //CreadorDeArbol arb = new CreadorDeArbol("juegos.txt");
-        CreadorDeArbol arb = new CreadorDeArbol("treeEtc.txt");
+        CreadorDeArbol arb = new CreadorDeArbol("juegos.txt");
+        //CreadorDeArbol arb = new CreadorDeArbol("treeEtc.txt");
         //CreadorDeArbol arb = new CreadorDeArbol("ejemplito.txt");
 
         //Creación árbol 1
@@ -89,14 +105,17 @@ public class Buscador
                     encontrados = encontrado.iguales;
                     System.out.println();
                     System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas con ese nombre en " + tiempoDeBusqueda + " milisegundos");
+                    System.out.println();
                     for(int i = 0; i < encontrados.size(); i++){
                         System.out.println(encontrados.get(i));
-                        System.out.println(encontrados.get(i).imprimirSubdirectorios());
+                        System.out.print(encontrados.get(i).imprimirSubdirectorios());
                     }
                     System.out.println();
                 } else {
                     encontrados = encontrado.iguales;
+                    System.out.println();
                     System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas de ese tamaño en " + tiempoDeBusqueda + " milisegundos");
+                    System.out.println();
                     for(int i = 0; i < encontrados.size(); i++){
                         System.out.println(encontrados.get(i));
                     }
@@ -110,5 +129,8 @@ public class Buscador
         //Nombre y tamaño ejemplos para juegos.txt: talk020.bfstm, 255K
         //Nombre y tamaño ejemplos para treeEtc.txt: powerbtn.sh , 43
         //Nombre y tamaño ejemplos para ejemplito.txt: rosette.eps , 4.0K
+        
+        //Queda pendiente una forma de buscar por carpeta y nombre juntos
+        //Queda pendiente una forma de buscar por carpeta y tamaño juntos
     }
 }

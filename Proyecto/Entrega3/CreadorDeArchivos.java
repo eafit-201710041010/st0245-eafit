@@ -39,7 +39,11 @@ public class CreadorDeArchivos
         return a;
     }
 
-    public void leerEncabezado(String linea){
-        jerarquias[0] = new Archivo("", linea);
+    public Archivo leerEncabezado(String linea, boolean porNombre){
+        linea = linea.substring(0, linea.length()-1);
+        Archivo elPatronDeTodos = new Archivo("", linea);
+        elPatronDeTodos.porNombre = porNombre;
+        jerarquias[0] = elPatronDeTodos;
+        return elPatronDeTodos;
     }
 }

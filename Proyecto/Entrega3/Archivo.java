@@ -7,6 +7,7 @@ public class Archivo implements Comparable<Archivo>
     boolean porNombre;
     boolean buscando;
     ArrayList<Archivo> iguales;
+    AvlTree<Archivo> igualNombre;
     AvlTree<Archivo> subDirectorios;
     public Archivo(String tam, String nom, Archivo boss){
         size = tam;
@@ -14,31 +15,40 @@ public class Archivo implements Comparable<Archivo>
         jefe = boss;
         porNombre = false;
         buscando = false;
-        iguales = new ArrayList<Archivo>();
         subDirectorios = new AvlTree<Archivo>();
+        igualNombre = new AvlTree<Archivo>();
+        Archivo copia = new Archivo(this);
+        igualNombre.insert(copia);
+        copia.iguales.add(copia);
+        iguales = new ArrayList<Archivo>();
         iguales.add(this);
     }
     public Archivo(String tam, String nom){
         size = tam;
         nombre = nom;
         jefe = null;
-        porNombre = false;
-        buscando = false;
-        iguales = new ArrayList<Archivo>();
+        buscando = true;
         subDirectorios = new AvlTree<Archivo>();
-        iguales.add(this);
     }
-    public Archivo(String tam, boolean nom){
+    public Archivo(String tamnom, boolean nom){
         porNombre = nom; 
         if (nom){
             size = "";
-            nombre = tam;
+            nombre = tamnom;
         }else {
-            size = tam;
+            size = tamnom;
             nombre = "";
         }
         jefe = null;
         buscando = true;
+    }
+    public Archivo(Archivo a){
+        nombre = a.nombre;
+        size = a.size;
+        jefe = a.jefe;
+        porNombre = false;
+        buscando = false;
+        iguales = new ArrayList<Archivo>();
     }
     
     @Override
@@ -55,7 +65,7 @@ public class Archivo implements Comparable<Archivo>
     
     public int compararSize(Archivo a){
         int n = size.compareTo(a.size);
-        if(!(a.buscando) && !(buscando)){
+        if(!(a.buscando || buscando)){
             if(n == 0){
                 a.iguales.add(this);
                 buscando = true;
@@ -65,10 +75,12 @@ public class Archivo implements Comparable<Archivo>
     }
     public int compararNombre(Archivo a){
         int n = nombre.compareTo(a.nombre);
-        if(!(a.buscando) && !(buscando)){
+        if(!(a.buscando || buscando)){
             if(n == 0){
                 a.iguales.add(this);
                 buscando = true;
+                Archivo copia = new Archivo(this);
+                a.igualNombre.insert(copia);
             }
         }
         return n;
@@ -88,13 +100,13 @@ public class Archivo implements Comparable<Archivo>
     public String imprimirSubdirectorios(){
         String s = "";
         if(subDirectorios.numberOfElements() > 0){
-            s += "Con " + subDirectorios.numberOfElements() + " subdirectorios\n\t" + subDirectorios.serializePrefix();
+            s += "Con " + subDirectorios.numberOfElements() + " subdirectorios\n\t" + subDirectorios.serializePrefix() + "\n";
         }
         return s;
     }
     
     public String toString(){
         String s = nombre;
-        return s + " " + size + "\t" + imprimirDireccion();
+        return s + " " + size + "\t" /*+ imprimirDireccion()*/;
     }
 }

@@ -15,7 +15,7 @@ public class CreadorDeArbol
         
         CreadorDeArchivos arch = new CreadorDeArchivos();
         String linea = br.readLine();
-        arch.leerEncabezado(linea);
+        t.insert(arch.leerEncabezado(linea, false));
         while(linea != null){
             linea = br.readLine();
             Archivo a = arch.leerLinea(linea, false);
@@ -34,7 +34,7 @@ public class CreadorDeArbol
         
         CreadorDeArchivos arch = new CreadorDeArchivos();
         String linea = br2.readLine();
-        arch.leerEncabezado(linea);
+        t.insert(arch.leerEncabezado(linea, true));
         while(linea != null){
             linea = br2.readLine();
             Archivo a = arch.leerLinea(linea, true);
