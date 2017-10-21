@@ -40,6 +40,7 @@ public class BinaryTree {
     {
         recursivePrintAUX(root);
     }
+
     /** Inserta un nuevo miembro al árbil genealógico*/
     public void insertar(String nombre, boolean esHombre){
         Node n = new Node(nombre, esHombre);
@@ -66,18 +67,22 @@ public class BinaryTree {
     }
 
     private void insertarAux(Node n, Node nodo){
-        if(n.hombre){
-            nodo.right = n;
-            tam++;
-        } else {
-            nodo.left = n;
-            tam++;
+        if(nodo != null){
+            if(n.hombre){
+                nodo.right = n;
+                tam++;
+            } else {
+                nodo.left = n;
+                tam++;
+            }
         }
     }
+
     /** Retorna el nnumero de elementos en el árbol*/
     public int getTam(){
         return tam;
     }
+
     /** Busca y retorna un elemento*/
     public Node buscar(String n){
         return buscarAux(n, root);
@@ -101,6 +106,7 @@ public class BinaryTree {
             }
         }
     }
+
     /**Busca y retorna nombre de abuela materna */
     public String getGrandMothersName(String s){
         Node n = buscar(s);
