@@ -21,6 +21,16 @@ public class Lector
                 break;
             }
         }
-        arb.recursivePrint();
+        imprimirPostorden(arb.root);
+    }
+    
+    public static void imprimirPostorden(Node node)
+    {
+        if (node != null)
+        {
+            imprimirPostorden(node.left);
+            imprimirPostorden(node.right);
+            System.out.println(node.data);
+        }
     }
 }
