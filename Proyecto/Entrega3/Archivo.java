@@ -28,7 +28,12 @@ public class Archivo implements Comparable<Archivo>
         nombre = nom;
         jefe = null;
         buscando = true;
+        igualNombre = new AvlTree<Archivo>();
+        Archivo copia = new Archivo(this);
+        igualNombre.insert(copia);
         subDirectorios = new AvlTree<Archivo>();
+        iguales = new ArrayList<>();
+        iguales.add(this);
     }
     public Archivo(String tamnom, boolean nom){
         porNombre = nom; 
@@ -107,6 +112,6 @@ public class Archivo implements Comparable<Archivo>
     
     public String toString(){
         String s = nombre;
-        return s + " " + size + "\t" /*+ imprimirDireccion()*/;
+        return s + " " + size + "\t" + imprimirDireccion();
     }
 }

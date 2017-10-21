@@ -54,8 +54,8 @@ public class Buscador
             if(encontrado == null){
                 return null;
             }
-            a.porNombre = false;
-            encontrado = encontrado.igualNombre.buscar(a);
+            Archivo copia = new Archivo(a);
+            encontrado = encontrado.igualNombre.buscar(copia);
             System.out.println(encontrado);
         } else if(a.porNombre){
             encontrado = tnom.buscar(a);

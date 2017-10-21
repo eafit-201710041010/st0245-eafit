@@ -22,7 +22,6 @@ public class CreadorDeArbol
             if(a == null){
                 break;
             }
-            //System.out.println(a);
             a.porNombre = false;
             t.insert(a);
         }
@@ -41,7 +40,6 @@ public class CreadorDeArbol
             if(a == null){
                 break;
             }
-            //System.out.println(a);
             a.porNombre = true;
             t.insert(a);
         }
