@@ -20,22 +20,22 @@ public class Buscador
         System.out.println("Ingresar parámetro de búsqueda (\"n\", \"t\" o \"nt\") o \"s\" para salir");
         String par;
         while(true){
-            par = in.next();
+            par = in.nextLine();
             if(par.equals("t")){
                 System.out.println("Ingrese el tamaño del archivo buscado (ejemplo \"255K\")");
-                String numero = in.next();
+                String numero = in.nextLine();
                 Archivo a = new Archivo(numero, false);
                 return a;
             } else if (par.equals("n")){
                 System.out.println("Ingrese el nombre del archivo buscado (ejemplo \"miArchivoPreferido.txt\")");
-                String nombre = in.next();
+                String nombre = in.nextLine();
                 Archivo a = new Archivo(nombre, true);
                 return a;
             } else if(par.equals("nt")){
                 System.out.println("Ingrese el nombre del archivo buscado (ejemplo \"miArchivoPreferido.txt\")");
-                String nombre = in.next();
+                String nombre = in.nextLine();
                 System.out.println("Ingrese el tamaño del archivo buscado (ejemplo \"255K\")");
-                String numero = in.next();
+                String numero = in.nextLine();
                 Archivo a = new Archivo(numero, nombre);
                 a.porNombre = true;
                 return a;
@@ -56,7 +56,6 @@ public class Buscador
             }
             Archivo copia = new Archivo(a);
             encontrado = encontrado.igualNombre.buscar(copia);
-            System.out.println(encontrado);
         } else if(a.porNombre){
             encontrado = tnom.buscar(a);
         } else {
@@ -130,7 +129,5 @@ public class Buscador
         //Nombre y tamaño ejemplos para treeEtc.txt: powerbtn.sh , 43
         //Nombre y tamaño ejemplos para ejemplito.txt: rosette.eps , 4.0K
         
-        //Queda pendiente una forma de buscar por carpeta y nombre juntos
-        //Queda pendiente una forma de buscar por carpeta y tamaño juntos
     }
 }
