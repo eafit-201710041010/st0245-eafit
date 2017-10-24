@@ -28,9 +28,9 @@ public class Archivo implements Comparable<Archivo>
         nombre = nom;
         jefe = null;
         buscando = true;
-        igualNombre = new AvlTree<Archivo>();
-        Archivo copia = new Archivo(this);
-        igualNombre.insert(copia);
+        //igualNombre = new AvlTree<Archivo>();
+        //Archivo copia = new Archivo(this);
+        //igualNombre.insert(copia);
         subDirectorios = new AvlTree<Archivo>();
         iguales = new ArrayList<>();
         iguales.add(this);

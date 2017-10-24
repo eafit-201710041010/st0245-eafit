@@ -10,9 +10,11 @@ public class Buscador
 {
     AvlTree<Archivo> tnum;
     AvlTree<Archivo> tnom;
+    private int tipoDeBusqueda;
     public Buscador(AvlTree<Archivo> num, AvlTree<Archivo> nom){
         tnum = num;
         tnom = nom;
+        tipoDeBusqueda = 0;
     }
 
     public Archivo leerBusqueda(){
@@ -22,16 +24,19 @@ public class Buscador
         while(true){
             par = in.nextLine();
             if(par.equals("t")){
+                tipoDeBusqueda = 1;
                 System.out.println("Ingrese el tamaño del archivo buscado (ejemplo \"255K\")");
                 String numero = in.nextLine();
                 Archivo a = new Archivo(numero, false);
                 return a;
             } else if (par.equals("n")){
+                tipoDeBusqueda = 2;
                 System.out.println("Ingrese el nombre del archivo buscado (ejemplo \"miArchivoPreferido.txt\")");
                 String nombre = in.nextLine();
                 Archivo a = new Archivo(nombre, true);
                 return a;
             } else if(par.equals("nt")){
+                tipoDeBusqueda = 3;
                 System.out.println("Ingrese el nombre del archivo buscado (ejemplo \"miArchivoPreferido.txt\")");
                 String nombre = in.nextLine();
                 System.out.println("Ingrese el tamaño del archivo buscado (ejemplo \"255K\")");
@@ -77,18 +82,17 @@ public class Buscador
         AvlTree<Archivo> tnum = arb.crearArbol();
         estimatedTimeSum = System.currentTimeMillis() - startTime;
         long creacion1 = estimatedTimeSum;
-        
+
         System.out.println("Creación árbol por tamaño: " + creacion1);
-        
+
         //Creación árbol 2
         startTime = System.currentTimeMillis();
         AvlTree<Archivo> tnom = arb.crearArbol2();
         estimatedTimeSum = System.currentTimeMillis() - startTime;
         long creacion2 = estimatedTimeSum;
-        
+
         System.out.println("Creación árbol por nombre: " + creacion2);
-        
-        
+
         //Buscador
         Buscador buscador = new Buscador(tnum, tnom);
         Archivo perdido = buscador.leerBusqueda();
@@ -100,7 +104,25 @@ public class Buscador
             if(encontrado == null){
                 System.out.println("No se encontraron archivos o carpetas con las características ingresadas");
             } else {
-                if(encontrado.porNombre){
+                if(buscador.tipoDeBusqueda == 3){
+                    encontrados = encontrado.iguales;
+                    System.out.println();
+                    System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas de ese tamaño en " + tiempoDeBusqueda + " milisegundos");
+                    System.out.println();
+                    for(int i = 0; i < encontrados.size()-1; i++){
+                        System.out.println(encontrados.get(i));
+                    }
+                    System.out.println();
+                } else if (buscador.tipoDeBusqueda == 1) {
+                    encontrados = encontrado.iguales;
+                    System.out.println();
+                    System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas de ese tamaño en " + tiempoDeBusqueda + " milisegundos");
+                    System.out.println();
+                    for(int i = 0; i < encontrados.size(); i++){
+                        System.out.println(encontrados.get(i));
+                    }
+                    System.out.println();
+                } else if (buscador.tipoDeBusqueda == 2){
                     encontrados = encontrado.iguales;
                     System.out.println();
                     System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas con ese nombre en " + tiempoDeBusqueda + " milisegundos");
@@ -111,23 +133,16 @@ public class Buscador
                     }
                     System.out.println();
                 } else {
-                    encontrados = encontrado.iguales;
-                    System.out.println();
-                    System.out.println("Se encontraron " + (encontrados.size()) + " archivos o carpetas de ese tamaño en " + tiempoDeBusqueda + " milisegundos");
-                    System.out.println();
-                    for(int i = 0; i < encontrados.size(); i++){
-                        System.out.println(encontrados.get(i));
-                    }
-                    System.out.println();
-                }   
+                    System.out.println("No se logró leer la búsqueda");
+                }
             }
             perdido = buscador.leerBusqueda();
         }
         System.exit(0);
-        
+
         //Nombre y tamaño ejemplos para juegos.txt: talk020.bfstm, 255K
         //Nombre y tamaño ejemplos para treeEtc.txt: powerbtn.sh , 43
         //Nombre y tamaño ejemplos para ejemplito.txt: rosette.eps , 4.0K
-        
+
     }
 }
