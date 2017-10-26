@@ -455,6 +455,11 @@ class AvlTree<T extends Comparable<? super T>> {
      * @return True if the element is found, false otherwise
      */
     protected T buscar(T x, AvlNode<T> t) {
+        
+        try{
+            Thread.sleep(1);
+        }catch(Exception e){}
+        
         if (t == null || t.element == null){
             return null; // The node was not found
         } else if (x.compareTo(t.element) < 0){

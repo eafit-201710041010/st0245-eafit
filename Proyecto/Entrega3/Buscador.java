@@ -92,7 +92,10 @@ public class Buscador
         long creacion2 = estimatedTimeSum;
 
         System.out.println("Creación árbol por nombre: " + creacion2);
-
+        
+        
+        System.out.println("Creación de la estructura: " + (creacion1 + creacion2));
+        
         //Buscador
         Buscador buscador = new Buscador(tnum, tnom);
         Archivo perdido = buscador.leerBusqueda();
